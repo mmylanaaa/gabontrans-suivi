@@ -4,8 +4,8 @@ app = Flask(__name__)
 app.json_ensure_ascii = False
 
 COLIS = {
-    "GT-1001" : { "client": "SOTELGAB", "statut": "En transit", "Ville": "Libreville" },
-    "GT-1002" : { "client": "TRANSGABON FRET", "statut": "Livré", "Ville": "Port-gentil" }
+    "GT-1001" : {"client": "SOTELGAB", "statut": "En transit", "ville": "Libreville", "poids_kg": 120},
+    "GT-1002" : {"client": "TRANSGABON FRET", "statut": "Livré", "ville": "Port-gentil"}
 }
 
 @app.route("/health")
@@ -16,7 +16,7 @@ def health():
 def get_colis(ref):
     colis = COLIS.get(ref)
     if colis is None:
-        return jsonify( error= "Colis introuvable", reference=ref ), 404
+        return jsonify( error= "Colis introuvable dans le système ", reference=ref ), 404
     return jsonify(reference=ref, **colis)
 
 if __name__ == "__main__":
